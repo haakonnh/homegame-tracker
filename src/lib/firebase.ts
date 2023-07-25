@@ -7,8 +7,15 @@ import { doc, getDoc, setDoc, collection } from "firebase/firestore";
 import type { Readable } from "svelte/store";
 import type { Game, HomegameData, Player } from './types';
 
+let process: any;
+
+// This is to make the app work in both the browser and SSR environments
+
+const p = process?.env ? process.env : import.meta.env;
+
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDhuMU4054pUTkAJYxJxlleVNOBpt31YHA",
+    apiKey: p.VITE_FIREBASE_API_KEY,
     authDomain: "homegame-tracker.firebaseapp.com",
     projectId: "homegame-tracker",
     storageBucket: "homegame-tracker.appspot.com",
@@ -40,7 +47,7 @@ function userStore() {
     });
     return () => unsubscribe();
   });
-
+  
   
 
   return {

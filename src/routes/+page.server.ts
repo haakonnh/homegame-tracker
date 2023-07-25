@@ -6,8 +6,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = (async ({ cookies, locals }) => {
         
         const uid = locals.userID;
-        const awaitAuth = await attemptHomegameAuthQuery(uid);
-        if (!awaitAuth) {
+        if (!uid) {
             console.log('redirecting to login');
             return {
                 isLoggedIn: false,

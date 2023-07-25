@@ -6,17 +6,21 @@
     import { playerStore } from "$lib/stores/players";
 	  import { getHomegameDataFromLocalStorage, homegameStore } from "$lib/stores/homegameStore";
 	  import { beforeUpdate, onMount } from "svelte";
-	import NavBar from "$lib/components/NavBar.svelte";
-	import type { PageData } from "../$types";
-	import type { HomegameData } from "$lib/types";
+	  import NavBar from "$lib/components/NavBar.svelte";
+	  import type { PageData } from "../$types";
+	  import type { HomegameData } from "$lib/types";
   
 
     async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
+
         const credential = await signInWithPopup(auth, provider);
 
+        
+        
         const idToken = await credential.user.getIdToken();
-
+      
+        
         const res = await fetch("/api/signin", {
             method: "POST",
             headers: {
@@ -24,6 +28,8 @@
             },
             body: JSON.stringify({ idToken }),
         });
+  
+    
 
         location.reload();
 
@@ -42,12 +48,12 @@
 
     export let data: PageData;
 
-    let homegameData: HomegameData;
+    let homegameData: HomegameData | null = data.homegameData;
 
 
     onMount( async () => {
-        homegameData = getHomegameDataFromLocalStorage();
-    });
+        //homegameData = getHomegameDataFromLocalStorage();
+    }); 
 
   
 
@@ -72,7 +78,7 @@
       </p>
      </div>
       
-      <a href="../{homegameStore.name}" class="btn btn-primary flex-none">Go to your homegame page</a>
+      <a href="../{homegameData.name}" class="btn btn-primary flex-none">Go to your homegame page</a>
       <button class="btn btn-warning flex-none" on:click={signOutSSR}> Sign out </button>
   
     {:else}

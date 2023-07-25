@@ -12,7 +12,7 @@
     
 
     onMount(() => {
-        console.log($homegameStore.name)
+        //console.log($homegameStore.name)
     });
 </script>
 <div class="card w-96 shadow-xl bg-neutral mt-5">

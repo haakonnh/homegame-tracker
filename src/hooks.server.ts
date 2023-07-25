@@ -2,7 +2,7 @@ import { adminAuth } from '$lib/server/admin';
 import type { Handle, RequestHandler } from '@sveltejs/kit';
 
 export const handle: Handle = (async ({ event, resolve }) => {
-    const sessionCookie = event.cookies.get('__session');
+    const sessionCookie = event.cookies.get("__session");
 
 
     try {
@@ -12,6 +12,7 @@ export const handle: Handle = (async ({ event, resolve }) => {
     }
 
     catch (e) {
+        console.log("Couldnt fetch cookie");
         event.locals.userID = null;
         return resolve(event);
     }

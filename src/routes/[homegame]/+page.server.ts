@@ -12,8 +12,7 @@ export const load = (async ({ cookies, locals }) => {
 
 
     const uid = locals.userID;
-    const awaitAuth = await attemptHomegameAuthQuery(uid);
-    if (!awaitAuth) {
+    if (!uid) {
         console.log('redirecting to login');
         throw redirect(301, '../login');
     }
@@ -21,7 +20,6 @@ export const load = (async ({ cookies, locals }) => {
     const homegamesRef = query(collection(db, 'homegames'), where('owner', '==', uid));
     const querySnapshot = await getDocs(homegamesRef);
 
-    homegameLocalStorage.set(querySnapshot.docs[0].data());
     console.log(get(homegameLocalStorage))
 
     const homegameData = querySnapshot.docs[0].data();
