@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+homegame-tracker/homegame-tracker-firebase-adminsdk-r3c61-12b7b3aba5.json
