@@ -1,5 +1,5 @@
 import { db } from '$lib/firebase'
-import { Timestamp, addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { Timestamp, addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import type { Actions } from './$types';
 import { addGameToHomegame } from '$lib/utils/addGame';
 import { generateUniqueId } from '$lib/utils/generateUniqueId';
@@ -7,7 +7,6 @@ import { get } from 'svelte/store';
 import { auth } from 'firebase-admin';
 import { authStore } from '$lib/stores/authStore';
 import { redirect } from '@sveltejs/kit';
-
 
 export const actions: Actions =  {
     default: async ({ locals, request, params }) => {

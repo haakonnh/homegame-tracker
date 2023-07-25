@@ -9,3 +9,6 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 homegame-tracker/homegame-tracker-firebase-adminsdk-r3c61-12b7b3aba5.json
+.firebase
+.firebaserc
+.github

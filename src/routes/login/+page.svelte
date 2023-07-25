@@ -17,13 +17,15 @@
 
         const idToken = await credential.user.getIdToken();
 
-        const res = fetch("/api/signin", {
+        const res = await fetch("/api/signin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ idToken }),
         });
+
+        location.reload();
 
         console.log(user);
     }
@@ -60,17 +62,17 @@
  
 
 
-{#if $playerStore.isAuthenticated}
-    {#if $playerStore.ownsHomegame}
+{#if data.isLoggedIn}
+    {#if homegameData}
       <!-- Display content when player is logged in and owns a homegame -->
       <div class="m-auto bigmargin">
       <p>Welcome, player!</p>
       <p>
-        You own the homegame {$homegameStore.name.toLocaleUpperCase()}.
+        You own the homegame {homegameData.name}.
       </p>
      </div>
       
-      <a href="../{$homegameStore.name}" class="btn btn-primary flex-none">Go to your homegame page</a>
+      <a href="../{homegameStore.name}" class="btn btn-primary flex-none">Go to your homegame page</a>
       <button class="btn btn-warning flex-none" on:click={signOutSSR}> Sign out </button>
   
     {:else}
