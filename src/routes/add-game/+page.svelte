@@ -2,12 +2,12 @@
 	import { goto } from '$app/navigation';
 	import { getHomegameDataFromLocalStorage, homegameStore } from '$lib/stores/homegameStore';
 	import { onMount } from 'svelte';
-    import type { PageData } from './$types';
+    import type { PageData } from '../../app';
 	import type { HomegameData } from '$lib/types';
     
     export let data: PageData;
     let amount: number = 0;
-    let isSubmitted = false;;
+    let isSubmitted = false;
 
     function handleSubmit() {
         if (amount < 1) {
@@ -46,7 +46,7 @@
             <input type="number" name="winnings" class="input input-primary" placeholder="Player winnings"/>
         </div>
         {/each}
-        <button class="btn btn-primary w-full" type="submit" on:click={handleFormSubmit}>Submit</button>
+        <button class="btn btn-primary w-full" type="submit">Submit</button>
     </form>
 </div>
     

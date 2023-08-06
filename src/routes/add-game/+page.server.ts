@@ -1,50 +1,69 @@
-import { db } from '$lib/firebase'
-import { Timestamp, addDoc, collection, doc, updateDoc } from 'firebase/firestore';
-import type { Actions } from './$types';
-import { addGameToHomegame } from '$lib/utils/addGame';
-import { generateUniqueId } from '$lib/utils/generateUniqueId';
-import { get } from 'svelte/store';
-import { auth } from 'firebase-admin';
-import { authStore } from '$lib/stores/authStore';
-import { redirect } from '@sveltejs/kit';
 
+import { db } from '$lib/database';
+import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 export const actions: Actions =  {
     default: async ({ locals, request, params }) => {
-        //event.preventDefault();
-        const data = await request.formData();
+        if (!locals.user) {
+            throw redirect(303, '/login');
+        }
+        if (!locals.homegameData) {
+            throw redirect(303, '/create-homegame');
+        }
 
-        const formDataArray = Array.from(data.entries());
+        // get the formdata
+        const formData = await request.formData();
+        console.log(formData)
+
+        const players = [];
+        let currentPlayer = {} as any;
+
+        for (const [key, value] of formData.entries()) {
+            if (key === 'name') {
+                currentPlayer.name = value;
+            } else if (key === 'winnings') {
+                currentPlayer.score = parseInt(value.toString());
+                currentPlayer.totalScore = parseInt(value.toString());
+                players.push({ ...currentPlayer });
+                currentPlayer = {}; // Reset for the next player
+            }
+        }
+
+        const homegameName: string = locals.homegameData.name;
+        const playerArray: any[] = [];
         
-        authStore.subscribe((curr: any) => {
-            console.log('User on mount: ', curr?.currentUser?.uid);
-        })
-
-
-        console.log('User', get(authStore).currentUser);
-        //fetchHomegameData(get(authStore).currentUser?.uid);
-
-        const playerDataObject: any = {};
-        for (let i = 0; i < formDataArray.length; i += 2) {
-            const playerId = generateUniqueId(); // Replace generateRandomId() with your random ID generation logic
-            const name = formDataArray[i][1];
-            const delta = formDataArray[i + 1][1];
-            playerDataObject[playerId] = { name, delta };
-        }
-        console.log(playerDataObject);
-        const newGameData = {
-            date: Timestamp.fromDate(new Date()),
-            players: playerDataObject,
-          };
-        console.log( 'New data: ', newGameData);
-        try {
-            await addGameToHomegame('yAW59gEcHmpeqQesvwWA', newGameData);
-            console.log('Did update')
-            redirect(302, '../login');
+        for (const player of players) {
+            const newPlayer = await db.player.upsert({
+                where: { homegameName_name: {homegameName, name: player.name} },
+                update: {
+                    score: player.score,
+                    totalScore: { increment: player.score },
+                },
+                create: {
+                    homegame: { connect: { name: homegameName } },
+                    name: player.name,
+                    score: player.score,
+                    totalScore: player.score,
+                },
+            });
+            playerArray.push(newPlayer);
         }
 
-        catch (error) {
-            console.error('Error adding game to homegame:', error);
-        }
         
-}
+        const game = await db.game.create({
+            data: {
+                homegame: { connect: { name: locals.homegameData.name } },
+                players: {
+                    connect: playerArray.map((player) => ({ id: player.id })),
+                },
+            },
+            include: {
+                players: true,
+            },
+        });
+        
+        throw redirect(303, `/${locals.homegameData.name}`);
+
+        
+    }
 }

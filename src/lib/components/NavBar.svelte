@@ -1,10 +1,15 @@
 <script lang="ts">
 	import type { HomegameData } from "$lib/types";
+	import { onMount } from "svelte";
 
 
     export let isLoggedIn: boolean;
 
     export let homegameData: HomegameData | null;
+
+    onMount(() => {
+        console.log(homegameData);
+    })
 
 </script>
 
@@ -15,12 +20,21 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
         </label>
         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-          {#if !isLoggedIn}<li><a href="/login">Login</a></li> 
+          {#if !isLoggedIn}
+            <li><a href="/login">Login</a></li> 
+            <li><a href="/register">Register</a></li>
           
           
-          {:else if homegameData !== null && homegameData} 
-          <li><a href="/login">Logout</a></li>
-          <li><a href="/{homegameData.name}">{homegameData.name.toLocaleUpperCase()}</a></li>   
+          {:else} 
+          <li>
+          <form action="/logout" method="POST">
+              <button type="submit">Logout</button>
+          </form>
+          
+        </li>
+        {#if homegameData}
+            <li><a href="/{homegameData.name}">{homegameData.name}</a></li>
+          {/if}
           {/if}
           
           <li><a>About</a></li>

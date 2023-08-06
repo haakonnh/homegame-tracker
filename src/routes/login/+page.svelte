@@ -1,116 +1,66 @@
 <script lang="ts">
-    import { auth } from "$lib/firebase";
-    import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-    import { user } from "$lib/firebase";
-	  import { checkIfUserOwnsHomegame } from "$lib/utils/authUtils";
-    import { playerStore } from "$lib/stores/players";
-	  import { getHomegameDataFromLocalStorage, homegameStore } from "$lib/stores/homegameStore";
-	  import { beforeUpdate, onMount } from "svelte";
 	  import NavBar from "$lib/components/NavBar.svelte";
-	  import type { PageData } from "../$types";
-	  import type { HomegameData } from "$lib/types";
-  
+    import type { ActionData } from "./$types";
 
-    async function signInWithGoogle() {
-        const provider = new GoogleAuthProvider();
-
-        const credential = await signInWithPopup(auth, provider);
-
-        
-        
-        const idToken = await credential.user.getIdToken();
-      
-        
-        const res = await fetch("/api/signin", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ idToken }),
-        });
-  
-    
-
-        location.reload();
-
-        console.log(user);
-    }
-
-
-    async function signOutSSR() {
-      const res = await fetch("/api/signin", {method: "DELETE"});
-      await signOut(auth);
-
-      // refresh page
-      location.reload();
-    }
-
-
-    export let data: PageData;
-
-    let homegameData: HomegameData | null = data.homegameData;
-
-
-    onMount( async () => {
-        //homegameData = getHomegameDataFromLocalStorage();
-    }); 
-
-  
-
-
+    export let form: ActionData;
 
     
 </script>
-<NavBar isLoggedIn={data.isLoggedIn} homegameData={homegameData} /> 
-<div class="w-full h-full">
-<main class="flex flex-col w-2/3 m-auto content-center h-full ">
-
- 
 
 
-{#if data.isLoggedIn}
-    {#if homegameData}
-      <!-- Display content when player is logged in and owns a homegame -->
-      <div class="m-auto bigmargin">
-      <p>Welcome, player!</p>
-      <p>
-        You own the homegame {homegameData.name}.
-      </p>
-     </div>
-      
-      <a href="../{homegameData.name}" class="btn btn-primary flex-none">Go to your homegame page</a>
-      <button class="btn btn-warning flex-none" on:click={signOutSSR}> Sign out </button>
-  
-    {:else}
-      <!-- Display content when player is logged in but doesn't own a homegame -->
-      <p>Welcome, player! You do not own a homegame yet.</p>
-      
-      <a href="/create-homegame" class="btn btn-primary flex-none">Create Homegame</a>
-      <button class="btn btn-danger flex-none" on:click={signOutSSR}> Sign out </button>
-    {/if}
-  {:else}
-    <!-- Display content when player is logged out -->
-    <p>Please log in to access homegame content.</p>
-    <button class="btn btn-primary flex-none" on:click={signInWithGoogle}> Sign in with Google </button>
-  {/if}
-</main>
+<main class="h-full w-full">
+    <div class="card w-1/3 bg-primary text-primary-content m-auto p-6 border-4 border-primary-500">
+        <form action="?/login" method="POST">
+   
+    
+                <header class="card-header"><h2 class=" text-5xl mb-10">Login!</h2></header>
+                
+                <div>
+                    <label class="label" for="username">
+                        <span class="label-text text-primary-content text-base">Username</span>
+                    
+                    <input type="text" name="username" id="username" required class="input p-4 text-white">
+                </label>
+                </div>
+        
+                <div>
+                    <label class="label" for="password">
+                        <span class="label-text text-primary-content text-base">Password</span>
+                    
+                    <input type="password" name="password" id="password" required class="input p-4 text-white"> 
+                </label>
+                </div>
+                {#if form?.fail}
+                <div class="alert alert-error">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>Username and password required.</span>
+                </div>
+                {/if}
 
+                {#if form?.credentials}
+
+                <div class="alert alert-error">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>You have entered wrong credentials.</span>
+                </div>
+
+                {/if}
+
+              
+                <footer class="card-footer mt-5 w-full ">
+                    <button type="submit" class="btn bg-secondary-500 btn-lg m-auto">Login</button>
+                </footer>
+            
+   
+
+</form>
 </div>
-
+</main>
 <style>
-    .bigmargin {
-        margin-top: 20%;
-    }
-  
-    button{
-        margin: auto;
-        margin-top: 10px;
-        width: 33%;
-    }
-    a {
-
-        margin: auto;
-        margin-top: 10px;
-        width: 33%;
-    }
+  main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+  }
 </style>

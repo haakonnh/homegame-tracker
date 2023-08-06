@@ -1,20 +1,47 @@
+import { db } from '$lib/database';
 import { adminAuth } from '$lib/server/admin';
-import type { Handle, RequestHandler } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 export const handle: Handle = (async ({ event, resolve }) => {
-    const sessionCookie = event.cookies.get("__session");
+    const session = event.cookies.get('session');
 
-
-    try {
-        const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie!);
-        event.locals.userID = decodedClaims.uid;    
-        console.log("UserID is found:", decodedClaims.uid);
+    if (!session) {
+        return await resolve(event); 
     }
 
-    catch (e) {
-        console.log("Couldnt fetch cookie");
-        event.locals.userID = null;
+    const user = await db.user.findUnique({
+        where: { userAuthToken: session },
+        select: { username: true, role: true, id: true},
+    });
+
+    if (!user) {
         return resolve(event);
+    }
+
+   
+
+    const homegameData = await db.homegames.findUnique({
+        where: { ownerId: user.id },
+        select: {
+            players: true,
+            name: true,
+            games: {
+                include: {
+                    players: true,
+                }
+            }
+        },
+    });
+
+    event.locals.user = {
+        name: user.username, 
+        role: user.role.name,
+        id: user.id,
+    }
+    
+    if (homegameData) {
+        event.locals.homegameData = homegameData; // annoying typescript
     }
 
     return resolve(event);

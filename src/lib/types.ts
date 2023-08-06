@@ -1,19 +1,16 @@
 import type { Timestamp } from "firebase/firestore";
 
 export interface Player {
-    delta: number;
+    score: number;
     name: string;
-    win: boolean;
 }
 
 export interface Game {
     date: Timestamp;
-    players: { [playerId: string]: Player };
+    players: any[];
 }
 
 export interface HomegameData {
     name: string;
-    owner: string;
-    homegameId: string;
-    games: { [gameId: string]: Game };
+    games: any[];
 }

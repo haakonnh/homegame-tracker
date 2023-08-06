@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  passwordHash String
+  userAuthToken String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  role Roles @relation(fields: [roleId], references: [id])
+  roleId Int
+
+  ownedHomegame Homegames?
+}
+
+model Roles {
+  id Int @id @default(autoincrement())
+  name String @unique
+  User User[]
+}
+
+model Homegames {
+  id          Int      @id @default(autoincrement())
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     String  @unique
+  name        String  @unique
+
+  players     Player[]
+
+  games       Game[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Game {
+  id           Int      @id @default(autoincrement())
+  homegame     Homegames @relation(fields: [homegameId], references: [id])
+  homegameId   Int
+
+  players      Player[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Player {
+  id           Int      @id @default(autoincrement())
+  game         Game[]
+
+  homegame     Homegames @relation(fields: [homegameName], references: [name])
+  homegameName String
+
+  name         String
+
+  score        Int
+  totalScore   Int
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([homegameName, name])
+}
