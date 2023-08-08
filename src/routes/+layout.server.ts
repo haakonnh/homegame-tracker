@@ -1,7 +1,4 @@
-import type { LayoutServerLoad } from "./$types";
-
-
-export const load = (async ({ locals, params }) => {
+export const load = (async ({ locals }) => {
     console.log(locals.user)
     if (!locals.homegameData) {
         return {

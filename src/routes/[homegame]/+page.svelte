@@ -1,10 +1,5 @@
 <script lang="ts">
 	import GameTable from '$lib/components/GameTable.svelte';
-	import type { HomegameData } from '$lib/types';
-	import NavBar from '$lib/components/NavBar.svelte';
-    import {homegameLocalStorage} from '$lib/stores/homegameLocalStorage';
-	import { homegameData } from '$lib/firebase';
-
     interface HomegameLoadData {
         homegameData: any;
     }

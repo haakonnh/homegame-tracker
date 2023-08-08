@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { getHomegameDataFromLocalStorage, homegameStore } from '$lib/stores/homegameStore';
 	import { onMount } from 'svelte';
     import type { PageData } from '../../app';
 	import type { HomegameData } from '$lib/types';
@@ -15,22 +13,12 @@
         }
         isSubmitted = true;
     }
-
-    function handleFormSubmit() {
-        //goto('../{$homegameStore.name}');
-    }
-
-    let homegameData: HomegameData;
-
-    onMount(async () => {
-        homegameData = await getHomegameDataFromLocalStorage();
-    })
 </script>
 
 <div>
-    {#if homegameData && !isSubmitted}
+    {#if data.homegameData && !isSubmitted}
     <div class="grid justify-center absolute w-full">
-        <a href="../{homegameData.name}" class="btn btn-secondary w-full mt-5 relative">Return to homepage</a>
+        <a href="../{data.homegameData.name}" class="btn btn-secondary w-full mt-5 relative">Return to homepage</a>
     </div>
     {/if}
     

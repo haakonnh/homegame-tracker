@@ -2,8 +2,11 @@
 import { db } from '$lib/database';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
+
+
+
 export const actions: Actions =  {
-    default: async ({ locals, request, params }) => {
+    default: async ({ locals, request }) => {
         if (!locals.user) {
             throw redirect(303, '/login');
         }

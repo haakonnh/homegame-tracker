@@ -1,8 +1,4 @@
 <script lang="ts">
-    import NavBar from "$lib/components/NavBar.svelte";
-    import { page } from "$app/stores";
-	import { AppBar } from "@skeletonlabs/skeleton";
-
     interface HomePageData {
         user: {
             name: string
@@ -11,7 +7,6 @@
         }
         homegameData: any;
     }
-    export let data: HomePageData;
 </script>
 
   <div class="card card-hover items-center justify-center 

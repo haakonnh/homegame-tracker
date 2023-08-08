@@ -1,6 +1,5 @@
 <script lang="ts">
     import NavBar from '$lib/components/NavBar.svelte';
-    import type { PageData } from './$types';
     import type { ActionData } from './$types';
     
     export let form: ActionData;
@@ -59,11 +58,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-
-    .error {
-        color: red;
     }
 
 </style>

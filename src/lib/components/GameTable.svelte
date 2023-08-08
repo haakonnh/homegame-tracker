@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { homegameStore } from "$lib/stores/homegameStore";
 	import type { Game } from "$lib/types";
-	import type { Timestamp } from "firebase/firestore";
 	import { onMount } from "svelte";
 
     /* let date: any;

@@ -1,7 +1,5 @@
 import { db } from '$lib/database';
-import { adminAuth } from '$lib/server/admin';
 import type { Handle } from '@sveltejs/kit';
-import { redirect } from '@sveltejs/kit';
 
 export const handle: Handle = (async ({ event, resolve }) => {
     const session = event.cookies.get('session');
