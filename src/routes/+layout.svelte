@@ -2,14 +2,14 @@
     import "../app.postcss"; 
     import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
     import '@skeletonlabs/skeleton/styles/skeleton.css';
-    import {authStore} from "$lib/stores/authStore";
 
     import { AppBar, AppRail, AppRailAnchor, AppShell } from "@skeletonlabs/skeleton";
-    
 
-    import { onMount } from "svelte";
-	import type { LayoutData } from "./$types";
-	import NavBar from "$lib/components/NavBar.svelte";
+    import IconHome from "~icons/mdi/home";
+    import Logout from "~icons/mdi/logout";
+    import GitHub from "~icons/mdi/github";
+    import Game from "~icons/mdi/gamepad-square";
+    import Target from "~icons/mdi/target";
 
     export let data: any;
 
@@ -18,33 +18,47 @@
     <svelte:fragment slot="header">
     <AppBar border="border-b-2 border-slate-600">
         <svelte:fragment slot="lead">
-        <strong class="text-xl text-black uppercase bg-gradient-to-r from-indigo-500 bg-primary-500 border-primary-500 p-2 border rounded-lg">
-            Homegame tracker
+        <a href="/">
+        <strong class="text-2xl transition-all ease-in-out hover:scale-110  
+        hover:bg-indigo-500 rounded p-4 hover:text-black duration-300 text-white uppercase mr-2 ">
+             Homegame tracker
         </strong>
+        </a>
+        <Target/>
         </svelte:fragment>
-        <svelte:fragment slot="trail"><a class="btn btn-md bg-primary-500 text-black font-bold"
+        <svelte:fragment slot="trail"><a class="btn btn-md  text-white text-xl font-bold
+        hover:scale-125"
         rel="noreferrer" target="_blank" href="https://github.com">
         GitHub
+        <GitHub/>
     </a>
+    
     </svelte:fragment>
     </AppBar>
     </svelte:fragment>
     
     
     <svelte:fragment slot="sidebarLeft">
-        <AppRail spacing="space-y-10" active="bg-primary-500" border="border-r-2 border-slate-600">
+        <AppRail active="bg-primary-500" border="border-r-2 border-slate-600">
             <!-- <NavBar isLoggedIn={true} homegameData={null}/> -->
             <svelte:fragment slot="lead">
                 <AppRailAnchor href="/">
+                    <svelte:fragment slot="lead">
+                        <IconHome/>
+                    </svelte:fragment>
                     <span class="text-xl">Home</span>
                 </AppRailAnchor>
                 {#if data.user}
                     {#if data.homegameData}
                     <AppRailAnchor href="/{data.homegameData.name}" >
+                        <svelte:fragment slot="lead">
+                            <Game/>
+                        </svelte:fragment>
                         <span class="text-xl">{data.homegameData.name}</span>
                     </AppRailAnchor>
                     {:else}
                     <AppRailAnchor href="/create-homegame">
+                        
                         <span class="text-xl">Create Homegame</span>
                     </AppRailAnchor>
                     {/if}
@@ -55,6 +69,9 @@
                 {#if data.user}
                     
                     <AppRailAnchor>
+                        <svelte:fragment slot="lead">
+                            <Logout/>
+                        </svelte:fragment>
                         <form action="/logout" method="POST">
                             <button type="submit" class="text-xl">Logout</button>
                         </form>

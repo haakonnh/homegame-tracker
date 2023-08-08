@@ -17,7 +17,7 @@
         //console.log($homegameStore.name)
     });
 </script>
-<div class="card border border-primary-500  w-96 shadow-xl bg-neutral mt-5">
+<div class="card card-hover variant-glass border border-primary-200  w-96 shadow-xl bg-neutral mt-5">
 <div class="card-body ">
 <h2 class="card-header text-xl text-center text-primary-500">
     Game {gameNumber + 1}

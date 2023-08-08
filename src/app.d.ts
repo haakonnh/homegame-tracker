@@ -1,6 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
 
 import type { HomegameData } from "$lib/types";
+import 'unplugin-icons/types/svelte';
 
 // for information about these interfaces
 declare global {
