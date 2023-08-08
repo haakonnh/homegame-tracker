@@ -1,11 +1,8 @@
 <script lang="ts">
-    import NavBar from '$lib/components/NavBar.svelte';
     import type { ActionData } from './$types';
     
     export let form: ActionData;
 </script>
-
-<NavBar isLoggedIn={false} homegameData={null} />
 
 
 
