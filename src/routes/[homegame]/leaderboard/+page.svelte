@@ -11,9 +11,9 @@
 {:else}
 <main class="m-auto w-2/3">
 
-<h1 class="m-auto pt-10 pb-10 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"><mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{data.homegameData.name}</mark> Leaderboard</h1>
+<h1 class="m-auto pt-10 pb-10 text-xl font-extrabold leading-none tracking-tight text-gray-900  sm:text-6xl dark:text-white"><mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{data.homegameData.name}</mark> Leaderboard</h1>
 
-        <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-6">
         {#each data.homegameData.players as player, index}
         
             <!-- Repeat for each player -->

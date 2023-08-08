@@ -21,8 +21,8 @@
     <AppBar border="border-b-2 border-slate-600">
         <svelte:fragment slot="lead">
         <a href="/">
-        <strong class="sm:text-2xl transition-all ease-in-out hover:scale-110  
-        hover:bg-indigo-500 rounded p-4 hover:text-black duration-300 text-white uppercase mr-2 ">
+        <strong class="sm:text-2xl text-xs transition-all ease-in-out hover:scale-110  
+        hover:bg-indigo-500 rounded p-1 sm:p-4 hover:text-black duration-300 text-white uppercase mr-2 ">
              Homegame tracker
         </strong>
         </a>
