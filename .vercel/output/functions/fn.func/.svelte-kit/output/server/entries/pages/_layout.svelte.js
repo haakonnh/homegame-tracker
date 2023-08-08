@@ -356,7 +356,11 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
               default: () => {
                 return `<span class="text-xl" data-svelte-h="svelte-11scbxw">Create Homegame</span>`;
               }
-            })}`}` : ``} `;
+            })}`}` : `${validate_component(AppRailAnchor, "AppRailAnchor").$$render($$result, { href: "/register" }, {}, {
+              default: () => {
+                return `<span class="text-xl" data-svelte-h="svelte-x2w24i">register</span>`;
+              }
+            })}`} `;
           }
         }
       )} `;

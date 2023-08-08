@@ -10,7 +10,7 @@ return {
 	assets: new Set(["favicon.png","moneypoker.jpg","pokerchips.png","poker_favicon.png","vectorchip.avif"]),
 	mimeTypes: {".png":"image/png",".jpg":"image/jpeg",".avif":"image/avif"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.88843c70.js","app":"_app/immutable/entry/app.ad26ecff.js","imports":["_app/immutable/entry/start.88843c70.js","_app/immutable/chunks/scheduler.029ef716.js","_app/immutable/chunks/singletons.8f3667d7.js","_app/immutable/chunks/index.c24a7714.js","_app/immutable/entry/app.ad26ecff.js","_app/immutable/chunks/scheduler.029ef716.js","_app/immutable/chunks/index.2a4c170a.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.d68a3ca7.js","app":"_app/immutable/entry/app.720c1ae6.js","imports":["_app/immutable/entry/start.d68a3ca7.js","_app/immutable/chunks/scheduler.029ef716.js","_app/immutable/chunks/singletons.0a1b5808.js","_app/immutable/chunks/index.c24a7714.js","_app/immutable/entry/app.720c1ae6.js","_app/immutable/chunks/scheduler.029ef716.js","_app/immutable/chunks/index.2a4c170a.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('../output/server/nodes/0.js')),
 			__memo(() => import('../output/server/nodes/1.js')),
