@@ -62,7 +62,12 @@
                         <span class="text-xl">Create Homegame</span>
                     </AppRailAnchor>
                     {/if}
+                {:else}
+                    <AppRailAnchor href="/register">
+                        <span class="text-xl">register</span>
+                    </AppRailAnchor>
                 {/if}
+
                 
             </svelte:fragment>
                 <svelte:fragment slot="trail">
