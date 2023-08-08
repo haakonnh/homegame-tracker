@@ -1,0 +1,6 @@
+{
+	"runtime": "nodejs18.x",
+	"handler": "..\\..\\..\\..\\JavaScript\\Svelte\\homegame-tracker\\.svelte-kit\\vercel-tmp\\index.js",
+	"launcherType": "Nodejs",
+	"experimentalResponseStreaming": true
+}
