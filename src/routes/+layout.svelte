@@ -10,6 +10,8 @@
     import GitHub from "~icons/mdi/github";
     import Game from "~icons/mdi/gamepad-square";
     import Target from "~icons/mdi/target";
+    import Login from "~icons/mdi/login";
+    import Register from "~icons/mdi/account-plus";
 
     export let data: any;
 
@@ -64,7 +66,10 @@
                     {/if}
                 {:else}
                     <AppRailAnchor href="/register">
-                        <span class="text-xl">register</span>
+                        <svelte:fragment slot="lead">
+                            <Register/>
+                        </svelte:fragment>
+                        <span class="text-xl">Register</span>
                     </AppRailAnchor>
                 {/if}
 
@@ -83,6 +88,9 @@
                     </AppRailAnchor>
                 {:else}
                     <AppRailAnchor href="/login">
+                        <svelte:fragment slot="lead">
+                            <Login/>
+                        </svelte:fragment>
                         <span class="text-xl">Login</span>
                     </AppRailAnchor>
                 {/if}
