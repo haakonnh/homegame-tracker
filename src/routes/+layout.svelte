@@ -21,14 +21,14 @@
     <AppBar border="border-b-2 border-slate-600">
         <svelte:fragment slot="lead">
         <a href="/">
-        <strong class="text-2xl transition-all ease-in-out hover:scale-110  
+        <strong class="sm:text-2xl transition-all ease-in-out hover:scale-110  
         hover:bg-indigo-500 rounded p-4 hover:text-black duration-300 text-white uppercase mr-2 ">
              Homegame tracker
         </strong>
         </a>
         <Target/>
         </svelte:fragment>
-        <svelte:fragment slot="trail"><a class="btn btn-md  text-white text-xl font-bold
+        <svelte:fragment slot="trail"><a class="btn btn-md  text-white text-lg sm:text-xl font-bold
         hover:scale-125"
         rel="noreferrer" target="_blank" href="https://github.com">
         GitHub
@@ -48,7 +48,7 @@
                     <svelte:fragment slot="lead">
                         <IconHome/>
                     </svelte:fragment>
-                    <span class="text-xl">Home</span>
+                    <span class="text-lg sm:text-xl">Home</span>
                 </AppRailAnchor>
                 {#if data.user}
                     {#if data.homegameData}
@@ -56,12 +56,12 @@
                         <svelte:fragment slot="lead">
                             <Game/>
                         </svelte:fragment>
-                        <span class="text-xl">{data.homegameData.name}</span>
+                        <span class="text-lg sm:text-xl">{data.homegameData.name}</span>
                     </AppRailAnchor>
                     {:else}
                     <AppRailAnchor href="/create-homegame">
                         
-                        <span class="text-xl">Create Homegame</span>
+                        <span class="text-lg sm:text-xl">Create Homegame</span>
                     </AppRailAnchor>
                     {/if}
                 {:else}
@@ -69,7 +69,7 @@
                         <svelte:fragment slot="lead">
                             <Register/>
                         </svelte:fragment>
-                        <span class="text-xl">Register</span>
+                        <span class="text-lg sm:text-xl">Register</span>
                     </AppRailAnchor>
                 {/if}
 
@@ -83,7 +83,7 @@
                             <Logout/>
                         </svelte:fragment>
                         <form action="/logout" method="POST">
-                            <button type="submit" class="text-xl">Logout</button>
+                            <button type="submit" class="text-lg sm:text-xl">Logout</button>
                         </form>
                     </AppRailAnchor>
                 {:else}
@@ -91,7 +91,7 @@
                         <svelte:fragment slot="lead">
                             <Login/>
                         </svelte:fragment>
-                        <span class="text-xl">Login</span>
+                        <span class="text-lg sm:text-xl">Login</span>
                     </AppRailAnchor>
                 {/if}
                  </svelte:fragment>

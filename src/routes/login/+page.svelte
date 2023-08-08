@@ -8,11 +8,11 @@
 
 
 <main class="h-full w-full">
-    <div class="card w-1/3 bg-primary text-primary-content m-auto p-6 border-4 border-primary-500">
+    <div class="card w-4/5 sm:w-2/5 bg-primary text-primary-content m-auto p-6 border-4 border-primary-500">
         <form action="?/login" method="POST">
    
     
-                <header class="card-header"><h2 class=" text-5xl mb-10">Login!</h2></header>
+                <header class="card-header"><h2 class=" sm:text-5xl mb-10">Login!</h2></header>
                 
                 <div>
                     <label class="label" for="username">
