@@ -6,18 +6,34 @@ export const load: PageServerLoad = (async ({ locals, params }) => {
     if (!locals.user) {
         throw redirect(303, '/login');
     }
+    let permission = false;
 
-    if (!locals.homegameData) {
-        throw redirect(303, '/create-homegame');
+    if (locals.user.readable) {
+        for (const homegame of locals.user.readable) {
+            if (homegame.name === params.homegame) {
+                locals.homegameData = homegame;
+                permission = true;
+            }
+        }
+
+    }
+/* 
+    if (params.homegame !== locals.homegameData.name || !permission) {
+        throw redirect(303, '/');
+    } */
+
+    if (permission) {
+        return {
+            homegameData: locals.homegameData,
+        }
     }
 
-    if (params.homegame !== locals.homegameData.name) {
-        throw redirect(303, `/${locals.homegameData.name}`);
+    if (locals.homegameData.name == params.homegame) {
+        return {
+            homegameData: locals.homegameData,
+        }
     }
-
-    return {
-        homegameData: locals.homegameData,
-    }
+    throw redirect(303, '/');
 
     
 });
