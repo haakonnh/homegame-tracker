@@ -2,9 +2,13 @@
     import "../app.postcss"; 
     import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
     import '@skeletonlabs/skeleton/styles/skeleton.css';
+    import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+    import { storePopup } from '@skeletonlabs/skeleton';
+    storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
-    import { AppBar, AppRail, AppRailAnchor, AppShell } from "@skeletonlabs/skeleton";
+    import { AppBar, AppRail, AppRailAnchor, AppShell, LightSwitch, ListBox, ListBoxItem, Modal, popup, type PopupSettings } from "@skeletonlabs/skeleton";
 
+    import Profile from "~icons/mdi/account-circle";
     import IconHome from "~icons/mdi/home";
     import Logout from "~icons/mdi/logout";
     import GitHub from "~icons/mdi/github";
@@ -16,7 +20,18 @@
 
     export let data: any;
 
+    let comboboxValue: string;
+
+    const popupCombobox: PopupSettings = {
+        event: 'focus-click',
+        target: 'popupCombobox',
+        placement: 'bottom',
+        closeQuery: '.listbox-item',
+        state: (e: Record<string, boolean>) => console.log(e)
+    };
+
 </script>
+<Modal />
 <AppShell slotPageHeader="sticky top-0 z-10" >
     <svelte:fragment slot="header">
     <AppBar border="border-b-2 border-slate-600">
@@ -29,11 +44,32 @@
         </a>
         <Target/>
         </svelte:fragment>
-        <svelte:fragment slot="trail"><a class="btn btn-md  text-white text-lg sm:text-xl font-bold
-        hover:scale-125"
-        rel="noreferrer" target="_blank" href="https://github.com">
-        GitHub
-        <GitHub/>
+        
+        <svelte:fragment slot="trail">
+            {#if data.user}
+            <button class="btn justify-between" use:popup={popupCombobox}>
+                <Profile/>
+            </button>
+            <div class="card shadow-xl py-2 flex items-center justify-center" data-popup="popupCombobox">
+                <ListBox rounded="rounded-none">
+                    <ListBoxItem bind:group={comboboxValue} name="medium" value="books">{data.user.name}</ListBoxItem>
+
+                    <ListBoxItem bind:group={comboboxValue} name="medium" value="television">
+                        <form action="/logout" method="POST">
+                            <span class="w-full m-auto" ><button type="submit" >Logout</button></span>
+                        </form>
+                    </ListBoxItem>
+                </ListBox>
+                <div class="arrow bg-surface-100-800-token" />
+            </div>
+            {/if}
+
+            <LightSwitch />
+            <a class="btn btn-md  text-white text-lg sm:text-xl font-bold
+            hover:scale-125"
+            rel="noreferrer" target="_blank" href="https://github.com">
+            GitHub
+            <GitHub/>
     </a>
     
     </svelte:fragment>

@@ -14,6 +14,7 @@ export const load: PageServerLoad = (async ({ locals, params }) => {
                 console.log("Homegame okay:", homegame )
                 return {
                     homegameData: homegame,
+                    readable: true,
                 }
                 
             }
