@@ -13,7 +13,7 @@
     <h1 class="mt-5 text-center mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"> <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{data.homegameData.name.toLocaleUpperCase()}</mark> Homepage</h1>
     <div class="grid grid-cols-3 content-center sm:w-1/2 m-auto py-5 gap-2 sm:gap-4">
         <div class="w-full">
-            <a href="/add-game" class="btn text-sm sm:text-xl sm:btn-xl bg-primary-500 w-full " >
+            <a href="{data.homegameData.name}/add-game" class="btn text-sm sm:text-xl sm:btn-xl bg-primary-500 w-full " >
                 Add game
             </a>
         </div>

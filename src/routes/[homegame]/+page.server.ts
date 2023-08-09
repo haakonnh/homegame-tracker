@@ -13,6 +13,7 @@ export const load: PageServerLoad = (async ({ locals, params }) => {
             if (homegame.name === params.homegame) {
                 locals.homegameData = homegame;
                 permission = true;
+                console.log("Homegame set:", homegame )
             }
         }
 
@@ -29,6 +30,7 @@ export const load: PageServerLoad = (async ({ locals, params }) => {
     }
 
     if (locals.homegameData.name == params.homegame) {
+        console.log("Homegame set:", locals.homegameData)
         return {
             homegameData: locals.homegameData,
         }

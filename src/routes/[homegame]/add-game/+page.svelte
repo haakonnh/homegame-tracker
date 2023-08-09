@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-    import type { PageData } from '../../app';
+    import type { PageData } from '../../../app';
 	import type { HomegameData } from '$lib/types';
     
     export let data: PageData;

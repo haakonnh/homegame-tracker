@@ -12,7 +12,13 @@ export const handle: Handle = (async ({ event, resolve }) => {
 
     const user = await db.user.findUnique({
         where: { userAuthToken: session },
-        select: { username: true, role: true, id: true, HomegamesRead: true},
+        select: { username: true, role: true, id: true, HomegamesRead: {
+            select: {
+                name: true,
+                players: true,
+                games: true,
+            }
+        }},
     });
     if (typeof user === 'undefined') { return resolve(event); }
 

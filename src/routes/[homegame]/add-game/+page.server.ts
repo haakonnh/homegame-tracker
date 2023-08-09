@@ -1,17 +1,19 @@
 
 import { db } from '$lib/database';
-import type { Actions } from './$types';
+import type { Actions } from '../$types';
 import { redirect } from '@sveltejs/kit';
 
 
 
 export const actions: Actions =  {
-    default: async ({ locals, request }) => {
+    default: async ({ locals, request, params }) => {
         if (!locals.user) {
             throw redirect(303, '/login');
         }
         if (!locals.homegameData) {
-            throw redirect(303, '/create-homegame');
+            if (!locals.user.readable) {
+                throw redirect(303, '/create-homegame');
+            }
         }
 
         // get the formdata
@@ -31,7 +33,7 @@ export const actions: Actions =  {
             }
         }
 
-        const homegameName: string = locals.homegameData.name;
+        const homegameName: string = params.homegame;
         const playerArray: any[] = [];
         
         for (const player of players) {
@@ -54,7 +56,7 @@ export const actions: Actions =  {
         
         const game = await db.game.create({
             data: {
-                homegame: { connect: { name: locals.homegameData.name } },
+                homegame: { connect: { name: homegameName } },
                 players: {
                     connect: playerArray.map((player) => ({ id: player.id })),
                 },
@@ -64,7 +66,7 @@ export const actions: Actions =  {
             },
         });
         
-        throw redirect(303, `/${locals.homegameData.name}`);
+        throw redirect(303, `/${homegameName}`);
 
         
     }
