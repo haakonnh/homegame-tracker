@@ -23,6 +23,9 @@ model User {
   roleId Int
 
   ownedHomegame Homegames?
+
+  HomegamesRead  Homegames[] @relation("UserToHomegames")
+
 }
 
 model Roles {
@@ -40,6 +43,9 @@ model Homegames {
   players     Player[]
 
   games       Game[]
+
+  readPlayers    User[]     @relation("UserToHomegames")
+
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

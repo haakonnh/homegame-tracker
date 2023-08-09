@@ -16,6 +16,7 @@ declare global {
 				name: string
 				role: string
 				id: string
+				readable: any
 			}
 
 			homegameData: any

@@ -8,7 +8,7 @@
 
 
 <main class="h-full w-full">
-    <div class="card w-4/5 sm:w-2/5 bg-primary text-primary-content m-auto p-6 border-4 border-primary-500">
+    <div class="card w-4/5 sm:w-2/5 card-hover variant-glass bg-primary text-primary-content m-auto p-6 border-4 border-primary-500">
         <form action="?/login" method="POST">
    
     

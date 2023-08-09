@@ -12,6 +12,7 @@
     import Target from "~icons/mdi/target";
     import Login from "~icons/mdi/login";
     import Register from "~icons/mdi/account-plus";
+    import Create from "~icons/mdi/plus-circle";
 
     export let data: any;
 
@@ -60,8 +61,10 @@
                     </AppRailAnchor>
                     {:else}
                     <AppRailAnchor href="/create-homegame">
-                        
-                        <span class="text-lg sm:text-xl">Create Homegame</span>
+                        <svelte:fragment slot="lead">
+                            <Create/>
+                        </svelte:fragment>
+                        <span class="text-lg sm:text-lg">Create<br> Your<br>Game</span>
                     </AppRailAnchor>
                     {/if}
                 {:else}
@@ -75,6 +78,18 @@
 
                 
             </svelte:fragment>
+
+                {#if data.user && data.user.readable }
+                    {#each data.user.readable as readableGame}
+                        <AppRailAnchor href="/{readableGame.name}">
+                            <svelte:fragment slot="lead">
+                                <Game/>
+                            </svelte:fragment>
+                            <span class="text-lg sm:text-xl">{readableGame.name}</span>
+                        </AppRailAnchor>
+                    {/each}
+                {/if}
+
                 <svelte:fragment slot="trail">
                 {#if data.user}
                     

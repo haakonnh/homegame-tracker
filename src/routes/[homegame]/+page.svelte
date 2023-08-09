@@ -11,13 +11,22 @@
 <main class="container mx-auto px-4">
     {#if data.homegameData}
     <h1 class="mt-5 text-center mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"> <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{data.homegameData.name.toLocaleUpperCase()}</mark> Homepage</h1>
-    <div class="grid grid-cols-2 content-center sm:w-1/2 m-auto py-5 gap-2 sm:gap-4">
-        <div class="w-full"><a href="/add-game" class="btn text-sm sm:text-xl sm:btn-xl bg-primary-500 w-full " >Add game</a></div>
-    <div class="w-full">
-        <a href="{data.homegameData.name}/leaderboard" class="btn text-sm sm:text-xl bg-primary-500 sm:btn-xl w-full">
-            Leaderboard
-        </a>
-    </div>
+    <div class="grid grid-cols-3 content-center sm:w-1/2 m-auto py-5 gap-2 sm:gap-4">
+        <div class="w-full">
+            <a href="/add-game" class="btn text-sm sm:text-xl sm:btn-xl bg-primary-500 w-full " >
+                Add game
+            </a>
+        </div>
+        <div class="w-full">
+            <a href="{data.homegameData.name}/leaderboard" class="btn text-sm sm:text-xl bg-secondary-500 sm:btn-xl w-full">
+                Leaderboard
+            </a>
+        </div>
+        <div class="w-full">
+            <a href="{data.homegameData.name}/permissions" class="btn text-sm sm:text-xl bg-warning-600 sm:btn-xl w-full">
+                Permissions
+            </a>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 w-full">
