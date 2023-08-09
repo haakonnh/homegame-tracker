@@ -23,7 +23,7 @@ const register: Action = async ({request}) => {
     const data = await request.formData()
     const username = data.get('username')
     const password = data.get('password')
-    console.log({ username, password })
+    //console.log({ username, password })
 
     if (typeof username !== 'string' || typeof password !== 'string' || !username) {
         return fail(400, { fail: true })

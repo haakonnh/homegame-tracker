@@ -1,5 +1,5 @@
 export const load = (async ({ locals }) => {
-    console.log(locals.user)
+    //console.log(locals.user)
     if (!locals.homegameData) {
         return {
             user: locals.user,

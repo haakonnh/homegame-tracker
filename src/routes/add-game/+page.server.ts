@@ -16,7 +16,6 @@ export const actions: Actions =  {
 
         // get the formdata
         const formData = await request.formData();
-        console.log(formData)
 
         const players = [];
         let currentPlayer = {} as any;
