@@ -6,6 +6,16 @@ export const load = (async ({ locals, params }) => {
         throw redirect(303, '/login');
     }
 
+    if (locals.user.readable) {
+        for (const homegame of locals.user.readable) {
+            if (homegame.name === params.homegame) {
+                return {
+                    homegameData: homegame,
+                }
+            }
+        }
+    }
+
     if (!locals.homegameData) {
         throw redirect(303, '/create-homegame');
     }

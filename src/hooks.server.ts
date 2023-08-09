@@ -16,7 +16,12 @@ export const handle: Handle = (async ({ event, resolve }) => {
             select: {
                 name: true,
                 players: true,
-                games: true,
+                games: {
+                    select: {
+                        players: true,
+                    }
+                    
+                },
             }
         }},
     });
@@ -42,6 +47,7 @@ export const handle: Handle = (async ({ event, resolve }) => {
     });
 
     if (!user.HomegamesRead) {
+        
         event.locals.user = {
             name: user.username,
             role: user.role.name,

@@ -31,7 +31,6 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-3 w-full">
         {#if data.homegameData.games}
-    
         {#each data.homegameData.games as game, index}
         
             <GameTable {game} gameNumber={index} />
