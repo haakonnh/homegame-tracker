@@ -27,7 +27,7 @@
     {#if data.homegameData}
     <h1 class="mt-5 text-center mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 
     md:text-5xl lg:text-6xl dark:text-white"> 
-    <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">
+    <mark class="px-2 text-white bg-primary-500 rounded dark:bg-primary-500">
         {data.homegameData.name.toLocaleUpperCase()}
     </mark> 
     Homepage

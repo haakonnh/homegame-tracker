@@ -15,29 +15,30 @@
         //console.log($homegameStore.name)
     });
 </script>
-<div class="card card-hover variant-glass border border-primary-200  w-full sm:w-96 shadow-xl bg-neutral mt-5">
+<div class="card card-hover variant-glass border border-primary-400  w-full sm:w-96 shadow-xl bg-neutral mt-5">
 <div class="card-body ">
-<h2 class="card-header text-xl text-center text-primary-500">
+<h2 class="card-header sm:text-2xl font-extrabold tracking-widest text-center text-primary-500">
     Game {gameNumber + 1}
   </h2>
 
   <div class="overflow-x-auto p-4">
-    <table class="table table-zebra">
+    <table class="w-full text-sm text-left ">
       <!-- head -->
       <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Winnings</th>
+        <tr class="dark:bg-gray-700 dark:text-gray-400 ">
+          <th scope="col" class="px-6 py-2"></th>
+          <th scope="col" class="px-6 py-2">Name</th>
+          <th scope="col" class="px-6 py-2">Winnings</th>
         </tr>
       </thead>
       <tbody>
 
         {#each game.players as player, index }
-        <tr>
-          <th>{index + 1}</th>
-          <td>{player.name}</td>
-          <td>{player.score}</td>
+        <tr class="border-b dark:border-gray-700">
+          <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {index + 1}</th>
+          <td class="px-6 py-2">{player.name}</td>
+          <td class="px-6 py-2">{player.score}</td>
         </tr>
         {/each}
         <!-- row 3 -->
@@ -46,3 +47,9 @@
   </div>
 </div>
 </div>
+
+<style>
+  td {
+    padding: 0.25rem;
+  }
+</style>

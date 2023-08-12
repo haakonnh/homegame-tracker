@@ -1,11 +1,12 @@
 <script lang="ts">
     import "../app.postcss"; 
-    import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+    //import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+    import '@skeletonlabs/skeleton/themes/theme-modern.css';
     import '@skeletonlabs/skeleton/styles/skeleton.css';
     import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-    import { storePopup } from '@skeletonlabs/skeleton';
+    import { AppRailTile, storePopup } from '@skeletonlabs/skeleton';
     storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-
+    import { page } from '$app/stores';
     import { AppBar, AppRail, AppRailAnchor, AppShell, LightSwitch, ListBox, ListBoxItem, Modal, popup, type PopupSettings } from "@skeletonlabs/skeleton";
 
     import Profile from "~icons/mdi/account-circle";
@@ -17,6 +18,7 @@
     import Login from "~icons/mdi/login";
     import Register from "~icons/mdi/account-plus";
     import Create from "~icons/mdi/plus-circle";
+	import { readable } from "svelte/store";
 
     export let data: any;
 
@@ -27,8 +29,9 @@
         target: 'popupCombobox',
         placement: 'bottom',
         closeQuery: '.listbox-item',
-        state: (e: Record<string, boolean>) => console.log(e)
     };
+
+    let currentTile = 0;
 
 </script>
 <Modal />
@@ -36,13 +39,14 @@
     <svelte:fragment slot="header">
     <AppBar border="border-b-2 border-slate-600">
         <svelte:fragment slot="lead">
+            <Target/>
         <a href="/">
         <strong class="sm:text-2xl text-xs transition-all ease-in-out hover:scale-110  
-        hover:bg-indigo-500 rounded p-1 sm:p-4 hover:text-black duration-300 text-white uppercase mr-2 ">
+        hover:bg-primary-500 rounded p-1 sm:p-4 hover:text-black duration-300 text-white uppercase ">
              Homegame tracker
         </strong>
         </a>
-        <Target/>
+        
         </svelte:fragment>
         
         <svelte:fragment slot="trail">
@@ -52,9 +56,9 @@
             </button>
             <div class="card shadow-xl py-2 flex items-center justify-center" data-popup="popupCombobox">
                 <ListBox rounded="rounded-none">
-                    <ListBoxItem bind:group={comboboxValue} name="medium" value="books">{data.user.name}</ListBoxItem>
+                    <ListBoxItem bind:group={comboboxValue} name="medium" value="username">{data.user.name}</ListBoxItem>
 
-                    <ListBoxItem bind:group={comboboxValue} name="medium" value="television">
+                    <ListBoxItem bind:group={comboboxValue} name="medium" value="logout">
                         <form action="/logout" method="POST">
                             <span class="w-full m-auto" ><button type="submit" >Logout</button></span>
                         </form>
@@ -64,7 +68,7 @@
             </div>
             {/if}
 
-            <LightSwitch />
+            
             <a class="btn btn-md  text-white text-lg sm:text-xl font-bold
             hover:scale-125"
             rel="noreferrer" target="_blank" href="https://github.com">
@@ -81,7 +85,7 @@
         <AppRail active="bg-primary-500" border="border-r-2 border-slate-600">
             <!-- <NavBar isLoggedIn={true} homegameData={null}/> -->
             <svelte:fragment slot="lead">
-                <AppRailAnchor href="/">
+                <AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
                     <svelte:fragment slot="lead">
                         <IconHome/>
                     </svelte:fragment>
@@ -89,7 +93,8 @@
                 </AppRailAnchor>
                 {#if data.user}
                     {#if data.homegameData}
-                    <AppRailAnchor href="/{data.homegameData.name}" >
+                    <AppRailAnchor href="/{data.homegameData.name}"
+                    selected={$page.url.pathname === `/${data.homegameData.name}`} >
                         <svelte:fragment slot="lead">
                             <Game/>
                         </svelte:fragment>
@@ -97,7 +102,7 @@
                     </AppRailAnchor>
                     {:else}
                     <AppRailAnchor href="/create-homegame">
-                        <svelte:fragment slot="lead">
+                        <svelte:fragment slot="lead"> 
                             <Create/>
                         </svelte:fragment>
                         <span class="text-lg sm:text-lg">Create<br> Your<br>Game</span>
@@ -117,7 +122,8 @@
 
                 {#if data.user && data.user.readable }
                     {#each data.user.readable as readableGame}
-                        <AppRailAnchor href="/{readableGame.name}">
+                        <AppRailAnchor href="/{readableGame.name}"
+                        selected={$page.url.pathname === `/${readableGame.name}`}>
                             <svelte:fragment slot="lead">
                                 <Game/>
                             </svelte:fragment>
