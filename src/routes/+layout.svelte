@@ -42,8 +42,8 @@
             <Target/>
         <a href="/">
         <strong class="sm:text-2xl text-xs transition-all ease-in-out hover:scale-110  
-        hover:bg-primary-500 rounded p-1 sm:p-4 hover:text-black duration-300 text-white uppercase ">
-             Homegame tracker
+        hover:bg-primary-500 tracking-wide rounded p-1 sm:p-4 hover:text-black duration-300 text-white ">
+             Homegame Tracker
         </strong>
         </a>
         
@@ -89,7 +89,7 @@
                     <svelte:fragment slot="lead">
                         <IconHome/>
                     </svelte:fragment>
-                    <span class="text-lg sm:text-xl">Home</span>
+                    <span class="text-md sm:text-lg">Home</span>
                 </AppRailAnchor>
                 {#if data.user}
                     {#if data.homegameData}
@@ -98,14 +98,14 @@
                         <svelte:fragment slot="lead">
                             <Game/>
                         </svelte:fragment>
-                        <span class="text-lg sm:text-xl">{data.homegameData.name}</span>
+                        <span class="text-md sm:text-lg">{data.homegameData.name}</span>
                     </AppRailAnchor>
                     {:else}
                     <AppRailAnchor href="/create-homegame">
                         <svelte:fragment slot="lead"> 
                             <Create/>
                         </svelte:fragment>
-                        <span class="text-lg sm:text-lg">Create<br> Your<br>Game</span>
+                        <span class="text-md sm:text-lg">Create<br> Your<br>Game</span>
                     </AppRailAnchor>
                     {/if}
                 {:else}
@@ -113,7 +113,7 @@
                         <svelte:fragment slot="lead">
                             <Register/>
                         </svelte:fragment>
-                        <span class="text-lg sm:text-xl">Register</span>
+                        <span class="text-md sm:text-lg">Register</span>
                     </AppRailAnchor>
                 {/if}
 
@@ -127,7 +127,7 @@
                             <svelte:fragment slot="lead">
                                 <Game/>
                             </svelte:fragment>
-                            <span class="text-lg sm:text-xl">{readableGame.name}</span>
+                            <span class="text-md sm:text-lg">{readableGame.name}</span>
                         </AppRailAnchor>
                     {/each}
                 {/if}
@@ -140,7 +140,7 @@
                             <Logout/>
                         </svelte:fragment>
                         <form action="/logout" method="POST">
-                            <button type="submit" class="text-lg sm:text-xl">Logout</button>
+                            <button type="submit" class="text-md sm:text-lg">Logout</button>
                         </form>
                     </AppRailAnchor>
                 {:else}
@@ -148,7 +148,7 @@
                         <svelte:fragment slot="lead">
                             <Login/>
                         </svelte:fragment>
-                        <span class="text-lg sm:text-xl">Login</span>
+                        <span class="text-md sm:text-lg">Login</span>
                     </AppRailAnchor>
                 {/if}
                  </svelte:fragment>
