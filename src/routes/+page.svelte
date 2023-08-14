@@ -26,7 +26,7 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-3 w-full justify-center items-center">
+    <div class="grid sm:grid-cols-3 grid-cols-1 w-full justify-center items-center">
         <div class="card card-hover w-4/5 ml-5 mt-5 bg-base-100 shadow-xl variant-glass">
           <figure class="p-4">
             <img src="/nima.PNG" alt="Nima" class="rounded-xl" />
