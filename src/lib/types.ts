@@ -1,4 +1,3 @@
-import type { Timestamp } from "firebase/firestore";
 
 export interface Player {
     score: number;
@@ -6,7 +5,7 @@ export interface Player {
 }
 
 export interface Game {
-    date: Timestamp;
+    //date: Timestamp;
     players: any[];
 }
 

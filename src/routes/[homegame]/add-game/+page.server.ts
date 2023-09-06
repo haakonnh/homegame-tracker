@@ -15,12 +15,23 @@ export const actions: Actions =  {
                 throw redirect(303, '/create-homegame');
             }
         }
-
+        const homegameName: string = params.homegame;
         // get the formdata
         const formData = await request.formData();
 
         const players = [];
         let currentPlayer = {} as any;
+
+        
+        
+        const game = await db.game.create({
+            data: {
+                homegame: { connect: { name: homegameName } },
+            },
+            include: {
+                players: true,
+            },
+        });
 
         for (const [key, value] of formData.entries()) {
             if (key === 'name') {
@@ -33,38 +44,51 @@ export const actions: Actions =  {
             }
         }
 
-        const homegameName: string = params.homegame;
+        
         const playerArray: any[] = [];
         
         for (const player of players) {
-            const newPlayer = await db.player.upsert({
-                where: { homegameName_name: {homegameName, name: player.name} },
-                update: {
-                    score: player.score,
-                    totalScore: { increment: player.score },
+            const existingPlayer = await db.player.findUnique({
+                where: { homegameName_name: { homegameName, name: player.name } },
+              });
+            if (existingPlayer) {
+                const newPlayer = await db.player.update({
+                    where: { homegameName_name: {homegameName, name: player.name} },
+                    data: {
+                        totalScore: { increment: player.score },
+                        scores: {
+                            create: {
+                                game: { connect: { id: game.id } },
+                                score: player.score,
+                        },
+                    },
                 },
-                create: {
-                    homegame: { connect: { name: homegameName } },
-                    name: player.name,
-                    score: player.score,
-                    totalScore: player.score,
-                },
-            });
-            playerArray.push(newPlayer);
-        }
+                });
+            }
+            else {
+                const newPlayer = await db.player.create({
+                    data: {
+                        homegame: { connect: { name: homegameName } },
+                        name: player.name,
+                        totalScore: player.score,
+                        scores: {
+                            create: {
+                                game: { connect: { id: game.id } },
+                                score: player.score,
+                            }
+                        },
+                    },
+                });
+            }
+                
 
-        
-        const game = await db.game.create({
-            data: {
-                homegame: { connect: { name: homegameName } },
-                players: {
-                    connect: playerArray.map((player) => ({ id: player.id })),
-                },
-            },
-            include: {
-                players: true,
-            },
-        });
+            }
+
+
+        // 
+        /* players: {
+            connect: playerArray.map((player) => ({ id: player.id })),
+        }, */
         
         throw redirect(303, `/${homegameName}`);
 
