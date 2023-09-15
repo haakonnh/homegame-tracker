@@ -32,12 +32,11 @@
         </tr>
       </thead>
       <tbody>
-
         {#each game.scores as s, index }
         <tr class="border-b dark:border-gray-700">
           <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {index + 1}</th>
-          <td class="px-6 py-2">{s.player.name}</td>
+          <td class="px-6 py-2">{s.playerName}</td>
           <td class="px-6 py-2">{s.score}</td>
         </tr>
         {/each}

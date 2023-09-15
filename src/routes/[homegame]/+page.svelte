@@ -1,5 +1,6 @@
 <script lang="ts">
-	import GameTable from '$lib/components/GameTable.svelte';
+	import AnimatedRoute from '$lib/components/AnimatedRoute.svelte';
+import GameTable from '$lib/components/GameTable.svelte';
     import { modalStore } from '@skeletonlabs/skeleton';
     import type { ModalSettings } from '@skeletonlabs/skeleton';
 	import { readable } from 'svelte/store';

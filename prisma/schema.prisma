@@ -58,12 +58,11 @@ model Game {
 
   players      Player[]
 
+  scores      Score[]
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  scores       Score[]
 }
-
 
 model Player {
   id           Int      @id @default(autoincrement())
@@ -74,7 +73,6 @@ model Player {
 
   name         String
 
-  scores       Score[]
   totalScore   Int
 
   createdAt    DateTime @default(now())
@@ -84,13 +82,14 @@ model Player {
 }
 
 model Score {
-  id Int @id @default(autoincrement())
-  game Game @relation(fields: [gameId], references: [id])
-  gameId Int
-  player Player @relation(fields: [playerId], references: [id])
-  playerId Int
-  score Int
+  id          Int      @id @default(autoincrement())
+  game         Game     @relation(fields: [gameId], references: [id])
+  gameId       Int
+  playerName  String
+  score        Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
+
+

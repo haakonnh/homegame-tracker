@@ -24,8 +24,13 @@ export const load = (async ({ locals, params }) => {
         throw redirect(303, `/${locals.homegameData.name}`);
     }
 
+    const sortedPlayers = locals.homegameData.players.sort((a: any, b: any) => {
+        return b.totalScore - a.totalScore;
+    });
+
 
     return {
         homegameData: locals.homegameData,
+        sortedPlayers: sortedPlayers,
     }
 });

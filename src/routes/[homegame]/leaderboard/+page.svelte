@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
     import type { PageData } from './$types';
     
     export let data: PageData;
+
 </script>
 
 {#if !data}
@@ -14,7 +16,8 @@
 <h1 class="m-auto pt-10 pb-10 text-xl font-extrabold leading-none tracking-tight text-gray-900  sm:text-6xl dark:text-white"><mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{data.homegameData.name}</mark> Leaderboard</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-5 gap-6">
-        {#each data.homegameData.players as player, index}
+            
+        {#each data.sortedPlayers as player, index}
         
             <!-- Repeat for each player -->
             <div class="card p-4 bg-gradient-to-b bg-base-200 shadow-xl hover:shadow-xl">

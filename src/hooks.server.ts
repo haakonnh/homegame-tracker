@@ -39,10 +39,12 @@ export const handle: Handle = (async ({ event, resolve }) => {
             players: true,
             name: true,
             games: {
-                include: {
+                select: {
                     players: true,
-                }
+                    scores: true,
+                },
             }
+
         },
     });
 
