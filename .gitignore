@@ -13,3 +13,4 @@ homegame-tracker/homegame-tracker-firebase-adminsdk-r3c61-12b7b3aba5.json
 .firebaserc
 .github
 .vercel
+/prisma
